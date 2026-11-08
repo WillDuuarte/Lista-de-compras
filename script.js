@@ -1,8 +1,8 @@
 const input = document.getElementById("camp")
-const botao = document.getElementById("botao")
 const lista = document.getElementById("lista")
 const footer = document.querySelector("footer")
 const close = document.getElementById("close")
+const form = document.querySelector("form")
 
 function configurarItem(li) {
   const checkbox = li.querySelector('input[type="checkbox"]')
@@ -27,7 +27,8 @@ function configurarItem(li) {
 
 document.querySelectorAll("#lista li").forEach(configurarItem)
 
-botao.addEventListener("click", () => {
+form.addEventListener("submit", (event) => {
+  event.preventDefault()
   const valor = input.value.trim()
   if (valor === "") return
 
@@ -42,6 +43,8 @@ botao.addEventListener("click", () => {
 
   const btnDelete = document.createElement("button")
   btnDelete.classList.add("delete-btn")
+  btnDelete.type = "button"
+  btnDelete.setAttribute("aria-label", `Remover ${valor}`)
   btnDelete.innerHTML = `<ion-icon name="trash"></ion-icon>`
 
   li.appendChild(checkbox)
@@ -53,13 +56,6 @@ botao.addEventListener("click", () => {
 
   input.value = ""
   input.focus()
-})
-
-input.addEventListener("keypress", (e) => {
-  if (e.key === "Enter") {
-    e.preventDefault()
-    botao.click()
-  }
 })
 
 close.addEventListener("click", () => {
